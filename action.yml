@@ -55,8 +55,10 @@ runs:
         cache-environment: true
 
     - name: Copy ROS 2 ${{ inputs.ros_distro }} packages and middleware
-      shell: bash -eux {0}
+      shell: bash -el {0}
       run:  |
+        micromamba info
+        pip install vcstool
         vcs import --input https://raw.githubusercontent.com/ros2/ros2/${{ inputs.ros_distro }}/ros2.repos ros-workspace/src
         vcs import --input ${{ github.action_path }}/repos.yaml ros-workspace/src
 
