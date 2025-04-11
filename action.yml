@@ -47,12 +47,16 @@ runs:
       shell: bash -eux {0}
       run: mkdir -p ros-workspace/src
 
+    - name: Create environment
+      uses: mamba-org/setup-micromamba@v2
+      with:
+        environment-file: env.yaml
+        init-shell: bash
+        cache-environment: true
+
     - name: Copy ROS 2 ${{ inputs.ros_distro }} packages and middleware
       shell: bash -eux {0}
       run:  |
-        curl -s https://packagecloud.io/install/repositories/dirk-thomas/vcstool/script.deb.sh | sudo bash
-        sudo apt-get update
-        sudo apt-get install python3-vcstool
         vcs import --input https://raw.githubusercontent.com/ros2/ros2/${{ inputs.ros_distro }}/ros2.repos ros-workspace/src
         vcs import --input ${{ github.action_path }}/repos.yaml ros-workspace/src
 
@@ -86,13 +90,6 @@ runs:
       shell: bash -eux {0}
       run: |
         cp ${{ github.action_path }}/env.yaml ros-workspace/
-
-    - name: Create environment
-      uses: mamba-org/setup-micromamba@v2
-      with:
-        environment-file: ros-workspace/env.yaml
-        init-shell: bash
-        cache-environment: true
 
     - name: Build package
       shell: bash -el {0}
