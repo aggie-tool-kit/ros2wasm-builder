@@ -33,7 +33,7 @@ runs:
       run: echo "Packaging ${{ inputs.package }} for ${{ inputs.ros_distro }}"
 
     - name: Setup emsdk
-      uses: mymindstorm/setup-emsdk@v12
+      uses: mymindstorm/setup-emsdk@v14
       with:
         version: 3.1.45
 
@@ -60,7 +60,7 @@ runs:
       if: ${{ inputs.rmw_wasm }}
       uses: actions/checkout@v4
       with:
-        repository: ihuicatl/rmw_wasm
+        repository: ros2wasm/rmw_wasm
         path: ros-workspace/src/rmw_wasm
 
     - name: Remove unsupported packages
@@ -88,7 +88,7 @@ runs:
         cp ${{ github.action_path }}/env.yaml ros-workspace/
 
     - name: Create environment
-      uses: mamba-org/setup-micromamba@v1
+      uses: mamba-org/setup-micromamba@v2
       with:
         environment-file: ros-workspace/env.yaml
         init-shell: bash
