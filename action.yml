@@ -50,6 +50,7 @@ runs:
     - name: Copy environment file to workspace
       shell: bash -eux {0}
       run: |
+        ls -la ${{ github.action_path }}
         cp ${{ github.action_path }}/env.yaml ros-workspace/
 
     - name: Create environment
