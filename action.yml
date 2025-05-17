@@ -52,6 +52,7 @@ runs:
       run: |
         ls -la ${{ github.action_path }}
         cp ${{ github.action_path }}/env.yaml ros-workspace/
+        cd ros-workspace/
 
     - name: Create environment
       uses: mamba-org/setup-micromamba@v2
