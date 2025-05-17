@@ -57,7 +57,7 @@ runs:
     - name: Create environment
       uses: mamba-org/setup-micromamba@v2
       with:
-        environment-file: env.yaml
+        environment-file: ${{ github.action_path }}/env.yaml
         init-shell: bash
         cache-environment: true
 
